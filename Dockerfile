@@ -1,11 +1,9 @@
 FROM alpine:latest
 MAINTAINER stéphane BROSSE <stevebrush@gmail.com>
 
-ENV TIMEZONE Europe/Paris
+#ENV TIMEZONE Europe/Paris
 
 RUN apk add --no-cache git tzdata && \
-    cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
-    echo "${TIMEZONE}" > /etc/timezone && \
     git clone --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
     cd /src/domoticz && \
     git fetch --unshallow && \
@@ -53,7 +51,13 @@ RUN apk add --no-cache git tzdata && \
 
 VOLUME /config
 
+COPY run.sh /run.sh
+
+RUN chmod +x /run.sh 
+
 EXPOSE 9080
 
-ENTRYPOINT ["/src/domoticz/domoticz", "-dbase", "/config/domoticz.db", "-log", "/config/domoticz.log", "-sslwww", "0"]
-CMD ["-www", "9080"]
+CMD ["/run.sh"]
+
+#ENTRYPOINT ["/src/domoticz/domoticz", "-dbase", "/config/domoticz.db", "-log", "/config/domoticz.log", "-sslwww", "0"]
+#CMD ["-www", "9080"]
