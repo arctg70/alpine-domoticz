@@ -24,7 +24,7 @@ You can refer to the automatec build at [docker hub][4] too.
 
 ### Quick start :
 
-	docker run -p 9080:9080 steevebrush/alpine-domoticz
+	docker run -p 9080:9080 arctg70/domoticz-beta
 
 
 ### Fine tune :
@@ -38,7 +38,7 @@ If you want to attach an usb device, like an openZwave stick, add --device=/dev/
 
 ### Example with all set :
 
-	docker run -e "TIMEZONE=Europe/Paris" -p 9080:9080 -v /config:/config --device=/dev/ttyUSB0 steevebrush/alpine-domoticz
+	docker run -e TIMEZONE=Europe/Paris -p 9080:9080 -v /config:/config --device=/dev/ttyUSB0 arctg70/domoticz-beta
 
 
 ### Finally, open WebUI and start configuring Domoticz :
