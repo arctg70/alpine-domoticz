@@ -3,10 +3,10 @@ MAINTAINER stéphane BROSSE <stevebrush@gmail.com>
 
 #ENV TIMEZONE Europe/Paris
 
-COPY CMakeLists.txt /CMakeLists.txt
+#COPY CMakeLists.txt /CMakeLists.txt
 
 RUN apk add --no-cache git tzdata && \
-    git clone --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
+    git clone -b master --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
     cd /src/domoticz && \
     git fetch --unshallow && \
     sed -i -e "s/sys\/errno.h/errno.h/g" /src/domoticz/hardware/csocket.cpp && \
@@ -22,27 +22,27 @@ RUN apk add --no-cache git tzdata && \
         lua5.2 lua5.2-dev \
         mosquitto-dev \
         libusb-compat libusb-compat-dev \
-#       python3 python3-dev \
+        python3 python3-dev \
         udev eudev-dev \
         boost-thread \
         boost-system \
         boost-date_time \
         coreutils jq bash-completion && \
-    wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz && \
-    tar -xvf Python-3.5.2.tar.xz && \
-    cd Python-3.5.2 && \
-    ./configure --enable-shared && \
-    make && \
-    sudo make install && \
-    cp -f /CMakeLists.txt CMakeLists.txt && \
+#    wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz && \
+#    tar -xvf Python-3.5.2.tar.xz && \
+#    cd Python-3.5.2 && \
+#    ./configure --enable-shared && \
+#    make && \
+#    sudo make install && \
+#    cp -f /CMakeLists.txt CMakeLists.txt && \
     sed -i -e "s/sys\/poll.h/poll.h/g" /usr/include/boost/asio/detail/socket_types.hpp && \
     git clone --depth 2 https://github.com/OpenZWave/open-zwave.git /src/open-zwave && \
     cd /src/open-zwave && \
     make && \
     ln -s /src/open-zwave /src/open-zwave-read-only && \
     cd /src/domoticz && \
-#    cmake -DCMAKE_BUILD_TYPE=Release -Wno-dev . && \
-    cmake -USE_STATIC_OPENZWAVE -DCMAKE_BUILD_TYPE=Release CMakeLists.txt && \
+    cmake -DCMAKE_BUILD_TYPE=Release -Wno-dev . && \
+#    cmake -USE_STATIC_OPENZWAVE -DCMAKE_BUILD_TYPE=Release CMakeLists.txt && \
     make && \
     rm -rf /src/domoticz/.git && \
     rm -rf /src/open-zwave/.git && \
