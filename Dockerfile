@@ -41,7 +41,8 @@ RUN apk add --no-cache git tzdata && \
     make && \
     ln -s /src/open-zwave /src/open-zwave-read-only && \
     cd /src/domoticz && \
-    cmake -DCMAKE_BUILD_TYPE=Release -Wno-dev . && \
+#    cmake -DCMAKE_BUILD_TYPE=Release -Wno-dev . && \
+    cmake -USE_STATIC_OPENZWAVE -DCMAKE_BUILD_TYPE=Release CMakeLists.txt && \
     make && \
     rm -rf /src/domoticz/.git && \
     rm -rf /src/open-zwave/.git && \
