@@ -3,6 +3,8 @@ MAINTAINER stéphane BROSSE <stevebrush@gmail.com>
 
 #ENV TIMEZONE Europe/Paris
 
+COPY CMakeLists.txt \CMakeLists.txt
+
 RUN apk add --no-cache git tzdata && \
     git clone --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
     cd /src/domoticz && \
@@ -32,6 +34,7 @@ RUN apk add --no-cache git tzdata && \
     ./configure --enable-shared && \
     make && \
     sudo make install && \
+    cp -f \CMakeLists.txt CMakeLists.txt && \
     sed -i -e "s/sys\/poll.h/poll.h/g" /usr/include/boost/asio/detail/socket_types.hpp && \
     git clone --depth 2 https://github.com/OpenZWave/open-zwave.git /src/open-zwave && \
     cd /src/open-zwave && \
