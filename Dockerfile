@@ -10,6 +10,7 @@ RUN apk add --no-cache git tzdata && \
     sed -i -e "s/sys\/errno.h/errno.h/g" /src/domoticz/hardware/csocket.cpp && \
     sed -i -e "s/sys\/signal.h/signal.h/g" /src/domoticz/hardware/serial/impl/unix.cpp && \
     apk add --no-cache git \
+        wget tar \
         build-base cmake \
         libressl-dev \
         zlib-dev \
@@ -19,12 +20,18 @@ RUN apk add --no-cache git tzdata && \
         lua5.2 lua5.2-dev \
         mosquitto-dev \
         libusb-compat libusb-compat-dev \
-        python3 python3-dev \
+#       python3 python3-dev \
         udev eudev-dev \
         boost-thread \
         boost-system \
         boost-date_time \
         coreutils jq bash-completion && \
+    wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz && \
+    tar -xvf Python-3.5.2.tar.xz && \
+    cd Python-3.5.2 && \
+    ./configure --enable-shared && \
+    make && \
+    sudo make install && \
     sed -i -e "s/sys\/poll.h/poll.h/g" /usr/include/boost/asio/detail/socket_types.hpp && \
     git clone --depth 2 https://github.com/OpenZWave/open-zwave.git /src/open-zwave && \
     cd /src/open-zwave && \
