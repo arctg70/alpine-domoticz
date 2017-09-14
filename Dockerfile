@@ -1,12 +1,12 @@
 FROM alpine:latest
 MAINTAINER stéphane BROSSE <stevebrush@gmail.com>
 
-#ENV TIMEZONE Europe/Paris
-
 #COPY CMakeLists.txt /CMakeLists.txt
 
 RUN apk add --no-cache git tzdata && \
     git clone -b python-enabled --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
+	cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  && \
+    echo "Asia/Shanghai" > /etc/timezone && \
     cd /src/domoticz && \
     git fetch --unshallow && \
     sed -i -e "s/sys\/errno.h/errno.h/g" /src/domoticz/hardware/csocket.cpp && \
