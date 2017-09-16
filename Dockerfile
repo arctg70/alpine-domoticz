@@ -4,9 +4,7 @@ MAINTAINER stéphane BROSSE <stevebrush@gmail.com>
 #COPY CMakeLists.txt /CMakeLists.txt
 
 RUN apk add --no-cache git tzdata && \
-    git clone -b python-enabled --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
-	cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  && \
-    echo "Asia/Shanghai" > /etc/timezone && \
+    git clone -b stable --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
     cd /src/domoticz && \
     git fetch --unshallow && \
     sed -i -e "s/sys\/errno.h/errno.h/g" /src/domoticz/hardware/csocket.cpp && \
@@ -46,6 +44,7 @@ RUN apk add --no-cache git tzdata && \
     make && \
     rm -rf /src/domoticz/.git && \
     rm -rf /src/open-zwave/.git && \
+    pip install beautifulsoup4 && \
     apk del git \
         build-base \
         cmake \
