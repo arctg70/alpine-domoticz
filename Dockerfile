@@ -17,7 +17,7 @@ RUN apk add --no-cache git tzdata && \
         curl libcurl curl-dev \
         boost-dev \
         sqlite-dev \
-        lua5.2 lua5.2-dev \
+        lua5.2 lua5.2-dev pip \
         mosquitto-dev \
         libusb-compat libusb-compat-dev \
         python3 python3-dev \
