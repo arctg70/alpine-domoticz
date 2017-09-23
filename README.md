@@ -29,7 +29,7 @@ You can refer to the automatec build at [docker hub][4] too.
 
 ### Fine tune :
 
-The default timezone is set to Europe/Paris.
+The default timezone is set to Asia/Shanghai.
 You can set the environment variable to yours by adding -e "TIMEZONE=YOUR/TIMEZONE" to the run command.
 
 If you map the /config volume, your config, database an log will be keeped beetwen restarts and updates.
@@ -38,7 +38,7 @@ If you want to attach an usb device, like an openZwave stick, add --device=/dev/
 
 ### Example with all set :
 
-	docker run -e TIMEZONE=Europe/Paris -p 9080:9080 -v /config:/config --device=/dev/ttyUSB0 arctg70/domoticz-beta
+	docker run -e TIMEZONE=Asia/Shanghai -p 9080:9080 -v /config:/config --device=/dev/ttyUSB0 arctg70/domoticz-beta
 
 
 ### Finally, open WebUI and start configuring Domoticz :

@@ -5,7 +5,7 @@ MAINTAINER  Simon Zhou <simon.zhou@gmail.com>
 #COPY CMakeLists.txt /CMakeLists.txt
 
 RUN apk add --no-cache git tzdata && \
-    git clone -b python-enabled --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
+    git clone -b development --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
     cd /src/domoticz && \
     git fetch --unshallow && \
     sed -i -e "s/sys\/errno.h/errno.h/g" /src/domoticz/hardware/csocket.cpp && \
