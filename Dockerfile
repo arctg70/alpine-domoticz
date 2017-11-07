@@ -22,7 +22,7 @@ RUN apk add --no-cache git tzdata && \
 		nodejs alpine-sdk avahi-compat-libdns_sd \
         mosquitto-dev \
         libusb-compat libusb-compat-dev \
-        python3 python3-dev python-dev  python-pip \
+        python3 python3-dev python-dev  py-pip \
         udev eudev-dev \
         boost-thread \
         boost-system \
