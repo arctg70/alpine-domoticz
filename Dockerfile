@@ -19,15 +19,16 @@ RUN apk add --no-cache git tzdata && \
         boost-dev \
         sqlite-dev \
         lua5.2 lua5.2-dev py-pip \
-		nodejs alpine-sdk avahi-dev \
+		nodejs alpine-sdk avahi-compat-libdns_sd \
         mosquitto-dev \
         libusb-compat libusb-compat-dev \
-        python3 python3-dev \
+        python3 python3-dev python-dev  python-pip \
         udev eudev-dev \
         boost-thread \
         boost-system \
         boost-date_time \
         coreutils jq bash-completion && \
+	pip install paho-mqtt && \
 #    wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz && \
 #    tar -xvf Python-3.5.2.tar.xz && \
 #    cd Python-3.5.2 && \
