@@ -19,6 +19,7 @@ RUN apk add --no-cache git tzdata && \
         boost-dev \
         sqlite-dev \
         lua5.2 lua5.2-dev py-pip \
+		nodejs build-essential avahi-dev \
         mosquitto-dev \
         libusb-compat libusb-compat-dev \
         python3 python3-dev \
