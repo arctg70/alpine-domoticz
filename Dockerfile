@@ -20,7 +20,7 @@ RUN apk add --no-cache git tzdata && \
         sqlite-dev \
         lua5.2 lua5.2-dev py-pip \
 		nodejs alpine-sdk avahi-compat-libdns_sd \
-        mosquitto-dev  \
+        mosquitto-dev libftdi1-dev libftdi1 \
         libusb-compat libusb-compat-dev \
         python3 python3-dev python-dev  py-pip \
         udev eudev-dev \
