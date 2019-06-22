@@ -34,7 +34,7 @@ RUN apk add --no-cache git tzdata && \
 	gunzip telldus-core-2.1.2.tar.gz && \
 #Change {version} to the downloaded version
 	tar xvf telldus-core-2.1.2.tar && \
-	cd tellduc-core-2.1.2 && \
+	cd telldus-core-2.1.2 && \
 	cmake -DCMAKE_INSTALL_PREFIX=/usr . && \
 	make && \
 #    wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz && \
