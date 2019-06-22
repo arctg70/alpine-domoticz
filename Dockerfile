@@ -16,7 +16,7 @@ RUN apk add --no-cache git tzdata && \
         libressl-dev \
         zlib-dev \
         curl libcurl curl-dev \
-        boost-dev \
+        boost boost-dev protobuf \
         sqlite-dev \
         lua5.2 lua5.2-dev py-pip \
 		nodejs alpine-sdk avahi-compat-libdns_sd \
