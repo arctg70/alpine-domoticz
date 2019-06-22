@@ -11,7 +11,7 @@ RUN apk add --no-cache git tzdata && \
     sed -i -e "s/sys\/errno.h/errno.h/g" /src/domoticz/hardware/csocket.cpp && \
     sed -i -e "s/sys\/signal.h/signal.h/g" /src/domoticz/hardware/serial/impl/unix.cpp && \
     apk add --no-cache git \
-        wget tar xz sudo gunzip\
+        wget tar xz sudo \
         build-base cmake \
         libressl-dev \
         zlib-dev \
