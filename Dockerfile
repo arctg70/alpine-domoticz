@@ -11,7 +11,7 @@ RUN apk add --no-cache git tzdata && \
     sed -i -e "s/sys\/errno.h/errno.h/g" /src/domoticz/hardware/csocket.cpp && \
     sed -i -e "s/sys\/signal.h/signal.h/g" /src/domoticz/hardware/serial/impl/unix.cpp && \
     apk add --no-cache git \
-        wget tar xz sudo \
+        wget tar xz sudo gunzip\
         build-base cmake \
         libressl-dev \
         zlib-dev \
@@ -20,7 +20,7 @@ RUN apk add --no-cache git tzdata && \
         sqlite-dev \
         lua5.2 lua5.2-dev py-pip \
 		nodejs alpine-sdk avahi-compat-libdns_sd \
-        mosquitto-dev telldus-core-alpine \
+        mosquitto-dev  \
         libusb-compat libusb-compat-dev \
         python3 python3-dev python-dev  py-pip \
         udev eudev-dev \
@@ -29,6 +29,14 @@ RUN apk add --no-cache git tzdata && \
         boost-date_time \
         coreutils jq bash-completion && \
 	pip install paho-mqtt && \
+#	cd /usr/src && \
+	wget http://download.telldus.com/TellStick/Software/telldus-core/telldus-core-2.1.2.tar.gz && \
+	gunzip telldus-core-2.1.2.tar.gz && \
+#Change {version} to the downloaded version
+	tar xvf telldus-core-2.1.2.tar && \
+	cd tellduc-core && \
+	cmake -DCMAKE_INSTALL_PREFIX=/usr . && \
+	make && \
 #    wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz && \
 #    tar -xvf Python-3.5.2.tar.xz && \
 #    cd Python-3.5.2 && \
