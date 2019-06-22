@@ -3,7 +3,7 @@ MAINTAINER stéphane BROSSE <stevebrush@gmail.com>
 MAINTAINER  Simon Zhou <simon.zhou@gmail.com>
 
 #COPY CMakeLists.txt /CMakeLists.txt
-
+COPY patches/ /
 RUN apk add --no-cache git tzdata && \
     git clone -b development --depth 2 https://github.com/domoticz/domoticz.git /src/domoticz && \
     cd /src/domoticz && \
@@ -41,7 +41,7 @@ RUN apk add --no-cache git tzdata && \
 	mkdir -p \
 		/tmp/telldus-core && \
 	wget http://download.telldus.com/TellStick/Software/telldus-core/telldus-core-2.1.2.tar.gz && \
-	tar xf /tmp/patches/telldus-core-2.1.2.tar.gz -C \
+	tar xf telldus-core-2.1.2.tar.gz -C \
 		/tmp/telldus-core --strip-components=1 && \
 	curl -o /tmp/telldus-core/Doxyfile.in -L \
 		https://raw.githubusercontent.com/telldus/telldus/master/telldus-core/Doxyfile.in && \
