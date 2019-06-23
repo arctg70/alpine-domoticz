@@ -85,11 +85,13 @@ RUN apk add --no-cache git tzdata && \
 #    make && \
 #    sudo make install && \
 #    cp -f /CMakeLists.txt CMakeLists.txt && \
+	echo "**** making open-zware ****" && \
     sed -i -e "s/sys\/poll.h/poll.h/g" /usr/include/boost/asio/detail/socket_types.hpp && \
     git clone --depth 2 https://github.com/OpenZWave/open-zwave.git /src/open-zwave && \
     cd /src/open-zwave && \
     make && \
     ln -s /src/open-zwave /src/open-zwave-read-only && \
+	echo "**** making domoticz ****" && \
     cd /src/domoticz && \
     cmake -DBOOST_LIBRARYDIR=/usr/lib/ -DCMAKE_BUILD_TYPE=Release -Wno-dev . && \
 #    cmake -USE_STATIC_OPENZWAVE -DCMAKE_BUILD_TYPE=Release CMakeLists.txt && \
