@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.9
+FROM alpine:latest
 
 MAINTAINER stéphane BROSSE <stevebrush@gmail.com>
 MAINTAINER  Simon Zhou <simon.zhou@gmail.com>
