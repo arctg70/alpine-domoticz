@@ -88,14 +88,29 @@ RUN apk add --no-cache git tzdata && \
 	echo "**** making open-zware ****" && \
     sed -i -e "s/sys\/poll.h/poll.h/g" /usr/include/boost/asio/detail/socket_types.hpp && \
     git clone --depth 2 https://github.com/OpenZWave/open-zwave.git /src/open-zwave && \
-    cd /src/open-zwave && \
+    ln -s /src/open-zwave /src/open-zwave-read-only && \    
+	cd /src/open-zwave && \
     make && \
-    ln -s /src/open-zwave /src/open-zwave-read-only && \
+	make \
+		instlibdir=usr/lib \
+		pkgconfigdir="usr/lib/pkgconfig/" \
+		PREFIX=/usr \
+		sysconfdir=etc/openzwave \
+		install && \
 	echo "**** making domoticz ****" && \
     cd /src/domoticz && \
     cmake -DBOOST_LIBRARYDIR=/usr/lib/ \
+		-DBUILD_SHARED_LIBS=True \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=/var/lib/domoticz \
+		-DOpenZWave=/usr/lib/libopenzwave.so \
+		-DUSE_BUILTIN_LUA=OFF \
+		-DUSE_BUILTIN_MQTT=OFF \
+		-DUSE_BUILTIN_SQLITE=OFF \
 		-DUSE_STATIC_BOOST=OFF \
-		-DCMAKE_BUILD_TYPE=Release -Wno-dev . && \
+		-DUSE_STATIC_LIBSTDCXX=OFF \
+		-DUSE_STATIC_OPENZWAVE=OFF \
+		-Wno-dev . && \
 #    cmake -USE_STATIC_OPENZWAVE -DCMAKE_BUILD_TYPE=Release CMakeLists.txt && \
     make && \
     rm -rf /src/domoticz/.git && \
