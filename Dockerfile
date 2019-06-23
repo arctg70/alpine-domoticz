@@ -33,7 +33,7 @@ RUN apk add --no-cache git tzdata && \
         coreutils jq bash-completion && \
 	echo "**** install build packages from edge****" && \
 	apk add --no-cache --virtual=build-dependencies-edge --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
-		cmake && \
+		cmake=3.14.5-r0 && \
 	echo "**** install runtime packages ****" && \
 	apk add --no-cache \
 		boost \
