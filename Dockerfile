@@ -61,7 +61,7 @@ RUN apk add --no-cache git tzdata && \
 	cp /tmp/patches/ConnectionListener_unix.cpp /tmp/telldus-core/service/ConnectionListener_unix.cpp && \
 	cp /tmp/patches/CMakeLists.txt /tmp/telldus-core/CMakeLists.txt && \
 	cd /tmp/telldus-core && \
-	cmake -DBOOST_LIBRARYDIR=/usr/lib/ \
+	cmake \
 		-DBUILD_TDADMIN=false \
 		-DCMAKE_INSTALL_PREFIX=/tmp/telldus-core . && \
 	make && \
@@ -91,7 +91,7 @@ RUN apk add --no-cache git tzdata && \
     make && \
     ln -s /src/open-zwave /src/open-zwave-read-only && \
     cd /src/domoticz && \
-    cmake -DCMAKE_BUILD_TYPE=Release -Wno-dev . && \
+    cmake -DBOOST_LIBRARYDIR=/usr/lib/ -DCMAKE_BUILD_TYPE=Release -Wno-dev . && \
 #    cmake -USE_STATIC_OPENZWAVE -DCMAKE_BUILD_TYPE=Release CMakeLists.txt && \
     make && \
     rm -rf /src/domoticz/.git && \
