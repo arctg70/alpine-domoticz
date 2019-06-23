@@ -27,9 +27,9 @@ RUN apk add --no-cache git tzdata && \
         libusb-compat libusb-compat-dev \
         python3 python3-dev python-dev  py-pip \
         udev eudev-dev \
-        boost-thread \
-        boost-system \
-        boost-date_time \
+#        boost-thread \
+#        boost-system \
+#        boost-date_time \
         coreutils jq bash-completion && \
 	echo "**** install build packages from edge****" && \
 	apk add --no-cache --virtual=build-dependencies-edge --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
