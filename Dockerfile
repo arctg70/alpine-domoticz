@@ -36,9 +36,9 @@ RUN apk add --no-cache git tzdata && \
 		cmake=3.14.5-r0 && \
 	echo "**** install runtime packages ****" && \
 	apk add --no-cache \
-		boost=1.69.0-r4 \
-		boost-system=1.69.0-r4 \
-		boost-thread=1.69.0-r4 \
+		boost \
+		boost-system \
+		boost-thread \
 		curl \
 		eudev-libs \
 		libressl \
