@@ -31,13 +31,24 @@ RUN apk add --no-cache git tzdata && \
         boost-system \
         boost-date_time \
         coreutils jq bash-completion && \
+	echo "**** install build packages from edge****" && \
+	apk add --no-cache --virtual=build-dependencies-edge --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
+		cmake && \
+	echo "**** install runtime packages ****" && \
+	apk add --no-cache \
+		boost \
+		boost-system \
+		boost-thread \
+		curl \
+		eudev-libs \
+		libressl \
+		openssh \
+		python3-dev && \
 	pip install paho-mqtt && \
-
 	echo "**** link libftdi libs ****" && \
 	ln -s /usr/lib/libftdi1.so /usr/lib/libftdi.so && \
 	ln -s /usr/lib/libftdi1.a /usr/lib/libftdi.a && \
 	ln -s /usr/include/libftdi1/ftdi.h /usr/include/ftdi.h && \
- 
 	echo "**** build telldus-core ****" && \
 	mkdir -p \
 		/tmp/telldus-core && \
@@ -52,13 +63,11 @@ RUN apk add --no-cache git tzdata && \
 	cd /tmp/telldus-core && \
 	cmake -DBUILD_TDADMIN=false -DCMAKE_INSTALL_PREFIX=/tmp/telldus-core . && \
 	make && \
-	
 	echo "**** configure telldus core ****" && \
 	mv /tmp/telldus-core/client/libtelldus-core.so.2.1.2 /usr/lib/libtelldus-core.so.2.1.2 && \
 	mv /tmp/telldus-core/client/telldus-core.h /usr/include/telldus-core.h && \
 	ln -s /usr/lib/libtelldus-core.so.2.1.2 /usr/lib/libtelldus-core.so.2 && \
 	ln -s /usr/lib/libtelldus-core.so.2 /usr/lib/libtelldus-core.so && \
-
 #	cd /usr/src && \
 #	wget http://download.telldus.com/TellStick/Software/telldus-core/telldus-core-2.1.2.tar.gz && \
 #	gunzip telldus-core-2.1.2.tar.gz && \
@@ -67,7 +76,6 @@ RUN apk add --no-cache git tzdata && \
 #	cd telldus-core-2.1.2 && \
 #	cmake -DCMAKE_INSTALL_PREFIX=/usr . && \
 #	make && \
-
 #    wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz && \
 #    tar -xvf Python-3.5.2.tar.xz && \
 #    cd Python-3.5.2 && \
@@ -75,7 +83,6 @@ RUN apk add --no-cache git tzdata && \
 #    make && \
 #    sudo make install && \
 #    cp -f /CMakeLists.txt CMakeLists.txt && \
-
     sed -i -e "s/sys\/poll.h/poll.h/g" /usr/include/boost/asio/detail/socket_types.hpp && \
     git clone --depth 2 https://github.com/OpenZWave/open-zwave.git /src/open-zwave && \
     cd /src/open-zwave && \
