@@ -61,7 +61,9 @@ RUN apk add --no-cache git tzdata && \
 	cp /tmp/patches/ConnectionListener_unix.cpp /tmp/telldus-core/service/ConnectionListener_unix.cpp && \
 	cp /tmp/patches/CMakeLists.txt /tmp/telldus-core/CMakeLists.txt && \
 	cd /tmp/telldus-core && \
-	cmake -DBUILD_TDADMIN=false -DCMAKE_INSTALL_PREFIX=/tmp/telldus-core . && \
+	cmake -DBOOST_LIBRARYDIR=/usr/lib \
+		-DBUILD_TDADMIN=false \
+		-DCMAKE_INSTALL_PREFIX=/tmp/telldus-core . && \
 	make && \
 	echo "**** configure telldus core ****" && \
 	mv /tmp/telldus-core/client/libtelldus-core.so.2.1.2 /usr/lib/libtelldus-core.so.2.1.2 && \
