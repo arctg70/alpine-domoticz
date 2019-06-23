@@ -1,4 +1,5 @@
-FROM alpine:latest
+FROM lsiobase/alpine:3.9
+
 MAINTAINER stéphane BROSSE <stevebrush@gmail.com>
 MAINTAINER  Simon Zhou <simon.zhou@gmail.com>
 
@@ -40,7 +41,7 @@ RUN apk add --no-cache git tzdata && \
 	echo "**** build telldus-core ****" && \
 	mkdir -p \
 		/tmp/telldus-core && \
-	wget http://download.telldus.com/TellStick/Software/telldus-core/telldus-core-2.1.2.tar.gz && \
+#	wget http://download.telldus.com/TellStick/Software/telldus-core/telldus-core-2.1.2.tar.gz && \
 	tar xf telldus-core-2.1.2.tar.gz -C \
 		/tmp/telldus-core --strip-components=1 && \
 	curl -o /tmp/telldus-core/Doxyfile.in -L \
