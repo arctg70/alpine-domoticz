@@ -11,39 +11,34 @@ RUN apk add --no-cache git tzdata && \
     git fetch --unshallow && \
     sed -i -e "s/sys\/errno.h/errno.h/g" /src/domoticz/hardware/csocket.cpp && \
     sed -i -e "s/sys\/signal.h/signal.h/g" /src/domoticz/hardware/serial/impl/unix.cpp && \
-    apk add --no-cache git \
+    apk add --no-cache \
+		git \
         wget tar xz sudo \
-        build-base cmake \
-        libressl-dev \
+        build-base \
+        libressl libressl-dev \
         zlib-dev \
         curl libcurl curl-dev \
-        boost boost-dev protobuf \
-		confuse-dev doxygen libusb-compat-dev libusb-dev \
+        protobuf \
+		confuse-dev doxygen \
+		libusb-compat libusb-compat-dev libusb-dev \
 		musl-dev \
         sqlite-dev \
         lua5.2 lua5.2-dev py-pip \
 		nodejs alpine-sdk avahi-compat-libdns_sd \
-        mosquitto-dev libftdi1-dev libftdi1 \
-        libusb-compat libusb-compat-dev \
-        python3 python3-dev python-dev  py-pip \
+        mosquitto-dev \
+		libftdi1-dev libftdi1 \
+        python3  python3-dev python-dev  py-pip \
         udev eudev-dev \
-#        boost-thread \
-#        boost-system \
-#        boost-date_time \
-        coreutils jq bash-completion && \
+        coreutils jq bash-completion  \
+		boost boost-dev \
+		boost-system \
+		boost-thread \
+		eudev-libs \
+		openssh  && \
 	echo "**** install build packages from edge****" && \
 	apk add --no-cache --virtual=build-dependencies-edge --repository http://dl-3.alpinelinux.org/alpine/edge/main/ \
 		cmake=3.14.5-r0 && \
 	echo "**** install runtime packages ****" && \
-	apk add --no-cache \
-		boost \
-		boost-system \
-		boost-thread \
-		curl \
-		eudev-libs \
-		libressl \
-		openssh \
-		python3-dev && \
 	pip install paho-mqtt && \
 	echo "**** link libftdi libs ****" && \
 	ln -s /usr/lib/libftdi1.so /usr/lib/libftdi.so && \
@@ -52,7 +47,6 @@ RUN apk add --no-cache git tzdata && \
 	echo "**** build telldus-core ****" && \
 	mkdir -p \
 		/tmp/telldus-core && \
-#	wget http://download.telldus.com/TellStick/Software/telldus-core/telldus-core-2.1.2.tar.gz && \
 	tar xf /tmp/patches/telldus-core-2.1.2.tar.gz -C \
 		/tmp/telldus-core --strip-components=1 && \
 	curl -o /tmp/telldus-core/Doxyfile.in -L \
@@ -70,21 +64,6 @@ RUN apk add --no-cache git tzdata && \
 	mv /tmp/telldus-core/client/telldus-core.h /usr/include/telldus-core.h && \
 	ln -s /usr/lib/libtelldus-core.so.2.1.2 /usr/lib/libtelldus-core.so.2 && \
 	ln -s /usr/lib/libtelldus-core.so.2 /usr/lib/libtelldus-core.so && \
-#	cd /usr/src && \
-#	wget http://download.telldus.com/TellStick/Software/telldus-core/telldus-core-2.1.2.tar.gz && \
-#	gunzip telldus-core-2.1.2.tar.gz && \
-#Change {version} to the downloaded version
-#	tar xvf telldus-core-2.1.2.tar && \
-#	cd telldus-core-2.1.2 && \
-#	cmake -DCMAKE_INSTALL_PREFIX=/usr . && \
-#	make && \
-#    wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tar.xz && \
-#    tar -xvf Python-3.5.2.tar.xz && \
-#    cd Python-3.5.2 && \
-#    ./configure --enable-shared && \
-#    make && \
-#    sudo make install && \
-#    cp -f /CMakeLists.txt CMakeLists.txt && \
 	echo "**** making open-zware ****" && \
     sed -i -e "s/sys\/poll.h/poll.h/g" /usr/include/boost/asio/detail/socket_types.hpp && \
     git clone --depth 2 https://github.com/OpenZWave/open-zwave.git /src/open-zwave && \
@@ -102,7 +81,7 @@ RUN apk add --no-cache git tzdata && \
     cmake -DBOOST_LIBRARYDIR=/usr/lib/ \
 		-DBUILD_SHARED_LIBS=True \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_INSTALL_PREFIX=/var/lib/domoticz \
+#		-DCMAKE_INSTALL_PREFIX=/var/lib/domoticz \
 		-DOpenZWave=/usr/lib/libopenzwave.so \
 		-DUSE_BUILTIN_LUA=OFF \
 		-DUSE_BUILTIN_MQTT=OFF \
@@ -111,7 +90,6 @@ RUN apk add --no-cache git tzdata && \
 		-DUSE_STATIC_LIBSTDCXX=OFF \
 		-DUSE_STATIC_OPENZWAVE=OFF \
 		-Wno-dev . && \
-#    cmake -USE_STATIC_OPENZWAVE -DCMAKE_BUILD_TYPE=Release CMakeLists.txt && \
     make && \
     rm -rf /src/domoticz/.git && \
     rm -rf /src/open-zwave/.git && \
